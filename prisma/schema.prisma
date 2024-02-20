@@ -1,0 +1,93 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         String   @id @default(cuid())
+  name       String
+  email      String   @unique
+  password   String
+  created_at DateTime @default(now())
+  updated_at DateTime
+
+  @@map("users")
+}
+
+model Product {
+  id         String       @id @default(cuid())
+  name       String
+  Stock      Stock[]
+  Request    Request[]
+  devolution devolution[]
+
+  @@map("products")
+}
+
+model Event {
+  id         String   @id @default(cuid())
+  event_name String
+  init_event DateTime
+  end_event  DateTime
+  status     String
+  created_at DateTime
+  Bar        Bar[]
+  Stock      Stock[]
+
+  @@map("events")
+}
+
+model Bar {
+  id       String    @id @default(cuid())
+  name     String    @unique
+  code     String    @default(cuid())
+  event    Event     @relation(fields: [event_id], references: [id])
+  event_id String
+  requests Request[]
+
+  @@map("bars")
+}
+
+model Stock {
+  id            String  @id @default(cuid())
+  event         Event   @relation(fields: [event_id], references: [id])
+  event_id      String
+  product       Product @relation(fields: [product_id], references: [id])
+  product_id    String
+  init_quantity Int
+  on_quantity   Int
+
+  @@map("stocks")
+}
+
+model Request {
+  id             String   @id @default(cuid())
+  Bar            Bar      @relation(fields: [bar_id], references: [id])
+  bar_id         String
+  status_request String
+  Product        Product  @relation(fields: [product_id], references: [id])
+  product_id     String
+  unit           Int
+  created_at     DateTime @default(now())
+  updated_at     DateTime
+
+  @@map("requests")
+}
+
+model devolution {
+  id                String   @id @default(cuid())
+  Product           Product  @relation(fields: [product_id], references: [id])
+  product_id        String
+  unit              Int
+  status_devolution String
+  created_at        DateTime @default(now())
+
+  @@map("devolutions")
+}
