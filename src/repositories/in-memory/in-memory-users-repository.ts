@@ -4,6 +4,22 @@ import { UsersRepository } from "../users_repository";
 
 export class InMemoryUsersrepository implements UsersRepository {
   public items:User[] = []
+  
+  async update(user: User) {
+    const userIndex = this.items.findIndex((findUser) => findUser.id === user.id )
+
+    this.items[userIndex] = user
+  }
+
+  async findById(id: string){
+    const user = this.items.find((item) => item.id === id)
+
+    if(!user) {
+      return null
+    }
+
+    return user
+  }
 
   async findByEmail(email: string){
     const user = this.items.find((item) => item.email === email)
