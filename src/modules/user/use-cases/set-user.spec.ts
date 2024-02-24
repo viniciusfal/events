@@ -20,7 +20,7 @@ describe('set user Use Case', () => {
       updated_at: '',
     })
 
-    const userUpdate = await sut.execute({
+    const { userUpdate } = await sut.execute({
       data: {
         id: 'clstspzos000008l54qw9fdly',
         name: 'luiz',
@@ -31,7 +31,7 @@ describe('set user Use Case', () => {
       },
     })
 
-    expect(userUpdate.userUpdate.name).toEqual('luiz')
-    expect(await compare('003003', userUpdate.userUpdate.password)).toBeTruthy()
+    expect(userUpdate.name).toEqual('luiz')
+    expect(await compare('003003', userUpdate.password)).toBeTruthy()
   })
 })

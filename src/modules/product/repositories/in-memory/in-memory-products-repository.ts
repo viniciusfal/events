@@ -7,7 +7,7 @@ export class InMemoryProductsRepository implements ProductsRepository {
   async create(data: Prisma.ProductCreateInput) {
     const product = {
       id: 'clszl2hqv000109l9b9764rrz',
-      name: data.name,
+      name: data.name.toLowerCase(),
     }
 
     this.items.push(product)
@@ -54,7 +54,7 @@ export class InMemoryProductsRepository implements ProductsRepository {
   }
 
   async remove(id: string) {
-    const productIndex = this.items.findIndex((item) => item.id)
+    const productIndex = this.items.findIndex((item) => item.id === id)
 
     this.items.splice(productIndex, 1)
   }
