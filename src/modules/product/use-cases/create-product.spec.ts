@@ -5,7 +5,7 @@ import { CreateProductUseCase } from './create-product'
 let productsRepository: InMemoryProductsRepository
 let sut: CreateProductUseCase
 
-describe('register Use Case', () => {
+describe('create product Use Case', () => {
   beforeEach(() => {
     productsRepository = new InMemoryProductsRepository()
     sut = new CreateProductUseCase(productsRepository)
