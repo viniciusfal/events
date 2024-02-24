@@ -1,32 +1,31 @@
-import { Prisma, User } from "@prisma/client";
-import { UsersRepository } from "../users_repository";
-
+import { Prisma, User } from '@prisma/client'
+import { UsersRepository } from '../users_repository'
 
 export class InMemoryUsersrepository implements UsersRepository {
-  public items:User[] = []
-  
+  public items: User[] = []
+
   async update(user: User) {
-    const userIndex = this.items.findIndex((item) => item.id === user.id )
+    const userIndex = this.items.findIndex((item) => item.id === user.id)
 
     this.items[userIndex] = user
 
     return user
   }
 
-  async findById(id: string){
+  async findById(id: string) {
     const user = this.items.find((item) => item.id === id)
 
-    if(!user) {
+    if (!user) {
       return null
     }
 
     return user
   }
 
-  async findByEmail(email: string){
+  async findByEmail(email: string) {
     const user = this.items.find((item) => item.email === email)
 
-    if(!user) {
+    if (!user) {
       return null
     }
 
@@ -40,12 +39,11 @@ export class InMemoryUsersrepository implements UsersRepository {
       email: data.email,
       password: data.password,
       created_at: new Date(),
-      updated_at: new Date()
+      updated_at: new Date(),
     }
 
     this.items.push(user)
-    
+
     return user
   }
-
 }

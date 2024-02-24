@@ -4,14 +4,16 @@ import { env } from './env'
 
 export const app = fastify()
 
-app.setErrorHandler((err,_, reply) => {
-  if(err instanceof ZodError){
-    return reply.status(400).send({message: 'Validation Error', issues: err.format()})
+app.setErrorHandler((err, _, reply) => {
+  if (err instanceof ZodError) {
+    return reply
+      .status(400)
+      .send({ message: 'Validation Error', issues: err.format() })
   }
 
-  if(env.NODE_ENV !== 'production') {
+  if (env.NODE_ENV !== 'production') {
     console.error(err)
   }
 
-  return reply.status(500).send({message: 'Internal server error'})
+  return reply.status(500).send({ message: 'Internal server error' })
 })

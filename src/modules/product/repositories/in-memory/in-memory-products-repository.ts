@@ -1,13 +1,13 @@
-import { Prisma, Product } from "@prisma/client";
-import { ProductsRepository } from "../products-repository";
+import { Prisma, Product } from '@prisma/client'
+import { ProductsRepository } from '../products-repository'
 
-export class InMemoryProductsRepository implements ProductsRepository{
+export class InMemoryProductsRepository implements ProductsRepository {
   public items: Product[] = []
 
   async create(data: Prisma.ProductCreateInput) {
     const product = {
       id: 'clszl2hqv000109l9b9764rrz',
-      name: data.name
+      name: data.name,
     }
 
     this.items.push(product)
@@ -16,9 +16,9 @@ export class InMemoryProductsRepository implements ProductsRepository{
   }
 
   async findById(id: string) {
-    const product = this.items.find(item => item.id === id )
+    const product = this.items.find((item) => item.id === id)
 
-    if(!product) {
+    if (!product) {
       return null
     }
 
@@ -36,27 +36,26 @@ export class InMemoryProductsRepository implements ProductsRepository{
   async filterByName(name: string) {
     const product = this.items.filter((item) => {
       return item.name.toLocaleLowerCase().includes(name.toLowerCase())
+    })
 
-    } )
-
-    if(!product) {
+    if (!product) {
       return null
     }
 
     return product
   }
 
-  async setProduct(product: Product){
-    const productIndex = this.items.findIndex(item => item.id)
+  async setProduct(product: Product) {
+    const productIndex = this.items.findIndex((item) => item.id)
 
     this.items[productIndex] = product
-    
+
     return product
   }
+
   async remove(id: string) {
-    const productIndex = this.items.findIndex(item => item.id)
+    const productIndex = this.items.findIndex((item) => item.id)
 
     this.items.splice(productIndex, 1)
   }
-
 }
