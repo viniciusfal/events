@@ -1,4 +1,4 @@
-import { InMemoryUsersrepository } from '@/repositories/in-memory/in-memory-users-repository'
+import { InMemoryUsersrepository } from '@/modules/user/repositories/in-memory/in-memory-users-repository'
 import {expect, it, describe, beforeEach} from 'vitest'
 import { compare, hash } from 'bcryptjs'
 import { UserAlreadyExistsError } from './errors/user-already-exists-errors'

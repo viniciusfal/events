@@ -1,5 +1,5 @@
 import {hash} from 'bcryptjs'
-import { InMemoryUsersrepository } from "@/repositories/in-memory/in-memory-users-repository";
+import { InMemoryUsersrepository } from "@/modules/user/repositories/in-memory/in-memory-users-repository";
 import { User } from "@prisma/client";
 import { UserAlreadyExistsError } from './errors/user-already-exists-errors';
 

@@ -6,7 +6,7 @@ export class InMemoryUsersrepository implements UsersRepository {
   public items:User[] = []
   
   async update(user: User) {
-    const userIndex = this.items.findIndex((findUser) => findUser.id === user.id )
+    const userIndex = this.items.findIndex((item) => item.id === user.id )
 
     this.items[userIndex] = user
 
