@@ -5,6 +5,6 @@ export interface ProductsRepository {
   findById(id: string): Promise<Product | null>
   list(): Promise<Product[]>
   filterByName(name: string): Promise<Product[] | null>
-  setProduct(product: Product): Promise<Product>
+  setProduct(data: Product): Promise<string>
   remove(id: string): Promise<void>
 }

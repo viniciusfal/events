@@ -45,12 +45,14 @@ export class InMemoryProductsRepository implements ProductsRepository {
     return products
   }
 
-  async setProduct(product: Product) {
+  async setProduct(data: Product) {
     const productIndex = this.items.findIndex((item) => item.id)
 
-    this.items[productIndex] = product
+    this.items[productIndex].name = data.name
 
-    return product
+    const productName = this.items[productIndex].name
+
+    return productName
   }
 
   async remove(id: string) {
