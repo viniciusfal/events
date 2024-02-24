@@ -9,6 +9,8 @@ export class InMemoryUsersrepository implements UsersRepository {
     const userIndex = this.items.findIndex((findUser) => findUser.id === user.id )
 
     this.items[userIndex] = user
+
+    return user
   }
 
   async findById(id: string){
