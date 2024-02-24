@@ -34,15 +34,15 @@ export class InMemoryProductsRepository implements ProductsRepository {
   }
 
   async filterByName(name: string) {
-    const product = this.items.filter((item) => {
+    const products = this.items.filter((item) => {
       return item.name.toLocaleLowerCase().includes(name.toLowerCase())
     })
 
-    if (!product) {
+    if (!products) {
       return null
     }
 
-    return product
+    return products
   }
 
   async setProduct(product: Product) {
