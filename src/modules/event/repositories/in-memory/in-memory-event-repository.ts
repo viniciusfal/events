@@ -11,7 +11,7 @@ export class InMemoryEventRepository implements eventsRepository {
       init_event: new Date(data.init_event),
       end_event: new Date(data.end_event),
       status: data.status,
-      created_at: new Date(),
+      created_at: new Date(data.created_at),
     }
 
     this.items.push(event)
