@@ -1,6 +1,7 @@
 import { Event } from '@prisma/client'
 import { InMemoryEventRepository } from '../repositories/in-memory/in-memory-event-repository'
 import dayjs from 'dayjs'
+import { InvalidDateError } from './erros/invalid-date-error'
 
 interface CreateEventUseCaseRequest {
   event_name: string
@@ -29,7 +30,7 @@ export class CreateEventUseCase {
     } else if (dayjs(init_event).isAfter(dayjs())) {
       statusCondicion = 'em breve'
     } else {
-      statusCondicion = 'encerrado'
+      throw new InvalidDateError()
     }
 
     const event = await this.eventsRepository.create({

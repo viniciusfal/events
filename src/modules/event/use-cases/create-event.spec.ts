@@ -1,6 +1,7 @@
 import { describe, expect, it, beforeEach, vi, afterEach } from 'vitest'
 import { InMemoryEventRepository } from '../repositories/in-memory/in-memory-event-repository'
 import { CreateEventUseCase } from './create-event'
+import { InvalidDateError } from './erros/invalid-date-error'
 
 let eventsRepository: InMemoryEventRepository
 let sut: CreateEventUseCase
@@ -47,12 +48,12 @@ describe('Create Event Use Case', () => {
 
     vi.setSystemTime(new Date(2024, 1, 11))
 
-    const event3 = await sut.execute({
-      event_name: 'fan fest',
-      init_event: new Date(2024, 1, 6),
-      end_event: new Date(2024, 1, 10),
-    })
-
-    expect(event3.event.status).toEqual('encerrado')
+    await expect(() =>
+      sut.execute({
+        event_name: 'fan fest',
+        init_event: new Date(2024, 1, 6),
+        end_event: new Date(2024, 1, 10),
+      }),
+    ).rejects.toBeInstanceOf(InvalidDateError)
   })
 })
