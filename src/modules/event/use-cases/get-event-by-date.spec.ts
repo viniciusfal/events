@@ -1,22 +1,21 @@
 import { expect, it, describe, beforeEach } from 'vitest'
 import { InMemoryEventRepository } from '../repositories/in-memory/in-memory-event-repository'
-import { ListEventsUseCase } from './list-events'
-import { EventNotAFoundError } from './erros/event-not-a-found-error'
+import { GetEventByDateUseCase } from './get-event-by-date'
 
 let eventsRepository: InMemoryEventRepository
-let sut: ListEventsUseCase
+let sut: GetEventByDateUseCase
 
 describe('list event Use Case', () => {
   beforeEach(() => {
     eventsRepository = new InMemoryEventRepository()
-    sut = new ListEventsUseCase(eventsRepository)
+    sut = new GetEventByDateUseCase(eventsRepository)
   })
 
-  it('should be able to list all events', async () => {
+  it('should be able to list event by Date', async () => {
     await eventsRepository.create({
       event_name: 'event 1',
-      init_event: new Date(2024, 2, 10),
-      end_event: new Date(2024, 3, 9),
+      init_event: new Date(2024, 3, 10),
+      end_event: new Date(2024, 4, 9),
       status: '',
       created_at: new Date(),
     })
@@ -29,13 +28,12 @@ describe('list event Use Case', () => {
       created_at: new Date(),
     })
 
-    const { events } = await sut.execute()
+    const { events } = await sut.execute({
+      mounth: 2,
+    })
 
-    expect(events.length).toBe(2)
+    console.log(events)
+    expect(events.length).toBe(1)
   })
-  it('should be able to talk when the event list will empty', async () => {
-    await expect(() => sut.execute()).rejects.toBeInstanceOf(
-      EventNotAFoundError,
-    )
-  })
+  it('should not be ')
 })
